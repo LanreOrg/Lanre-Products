@@ -5,14 +5,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
 WORKDIR /src
-COPY ["Src/Apis/products/Lanre.Products.Api/Lanre.Products.Api.csproj", "Src/Apis/products/Lanre.Products.Api/"]
-COPY ["Src/Apis/products/Lanre.Products.Api.IntegrationTests/Lanre.Products.Api.IntegrationTests.csproj", "Src/Apis/products/Lanre.Products.Api.IntegrationTests/"]
-RUN dotnet restore "Src/Apis/products/Lanre.Products.Api/Lanre.Products.Api.csproj"
-RUN dotnet restore "Src/Apis/products/Lanre.Products.Api.IntegrationTests/Lanre.Products.Api.IntegrationTests.csproj"
+COPY ["Lanre.Products.Api/Lanre.Products.Api.csproj", "Lanre.Products.Api/"]
+COPY ["Lanre.Products.Api.IntegrationTests/Lanre.Products.Api.IntegrationTests.csproj", "Lanre.Products.Api.IntegrationTests/"]
+RUN dotnet restore "Lanre.Products.Api/Lanre.Products.Api.csproj"
+RUN dotnet restore "Lanre.Products.Api.IntegrationTests/Lanre.Products.Api.IntegrationTests.csproj"
 COPY . .
-WORKDIR "/src/Src/Apis/products/Lanre.Products.Api.IntegrationTests/"
+WORKDIR "/src/Lanre.Products.Api.IntegrationTests/"
 RUN dotnet build "Lanre.Products.Api.IntegrationTests.csproj" -c Release -o /app
 
 
 FROM build as integrationtests
-WORKDIR /src/Src/Apis/products/Lanre.Products.Api.IntegrationTests
+WORKDIR /src/Lanre.Products.Api.IntegrationTests

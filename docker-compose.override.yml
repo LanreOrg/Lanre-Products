@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  # apis, services
+  api-products:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=53443
+      - https_port=53443
+      - Kestrel__EndPoints__Http__Url=http://+:80
+      - Kestrel__EndPoints__Https__Url=https://+:443
+      - Kestrel__Certificates__Default__Path=cert.pfx
+      - Kestrel__Certificates__Default__Password=Pass@word
+      # - ElasticConfiguration__Uri=http://localhost:9200/
+      - ElasticConfiguration__Uri= ${ELASTICSEARCH:-http://docker.for.win.internal:9200}

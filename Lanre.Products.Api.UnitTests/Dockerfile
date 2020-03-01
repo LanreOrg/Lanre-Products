@@ -5,16 +5,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
 WORKDIR /src
-# COPY ["Src/Directory.Build.props", "Src/Directory.Build.props"]
-# COPY ["Src/_configuration", "Src/_configuration"]
-COPY ["Src/Apis/products/Lanre.Products.Api/Lanre.Products.Api.csproj", "Src/Apis/products/Lanre.Products.Api/"]
-COPY ["Src/Apis/products/Lanre.Products.Api.UnitTests/Lanre.Products.Api.UnitTests.csproj", "Src/Apis/products/Lanre.Products.Api.UnitTests/"]
-RUN dotnet restore "Src/Apis/products/Lanre.Products.Api/Lanre.Products.Api.csproj"
-RUN dotnet restore "Src/Apis/products/Lanre.Products.Api.UnitTests/Lanre.Products.Api.UnitTests.csproj"
+COPY ["Lanre.Products.Api/Lanre.Products.Api.csproj", "Lanre.Products.Api/"]
+COPY ["Lanre.Products.Api.UnitTests/Lanre.Products.Api.UnitTests.csproj", "Lanre.Products.Api.UnitTests/"]
+RUN dotnet restore "Lanre.Products.Api/Lanre.Products.Api.csproj"
+RUN dotnet restore "Lanre.Products.Api.UnitTests/Lanre.Products.Api.UnitTests.csproj"
 COPY . .
-WORKDIR "/src/Src/Apis/products/Lanre.Products.Api.UnitTests/"
+WORKDIR "/src/Lanre.Products.Api.UnitTests/"
 RUN dotnet build "Lanre.Products.Api.UnitTests.csproj" -c Release -o /app
 
 
 FROM build as unittest
-WORKDIR /src/Src/Apis/products/Lanre.Products.Api.UnitTests
+WORKDIR /src/Lanre.Products.Api.UnitTests

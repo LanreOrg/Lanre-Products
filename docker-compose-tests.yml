@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  api-products-unit-tests:
+    image: ${DOCKER_REGISTRY-}api-products-unit-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Lanre.Products.Api.UnitTests/Dockerfile
+      target: unittest
+    entrypoint:
+        - dotnet
+        - test
+        - --logger
+        - trx;LogFileName=/tests/api-products-unit-test-results.xml
+    volumes: 
+    - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
+  api-products-integration-tests:
+    image: ${DOCKER_REGISTRY-}api-products-integration-test:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Lanre.Products.Api.IntegrationTests/Dockerfile
+      target: integrationtests
+    entrypoint:
+        - dotnet
+        - test
+        - --logger
+        - trx;LogFileName=/tests/api-products-integration-test-results.xml
+    volumes: 
+    - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests-results/}:/tests
+  

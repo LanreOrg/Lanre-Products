@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  # apis, services
+  api-products:
+    image: ${DOCKER_REGISTRY-}api-products:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Lanre.Products.Host/Dockerfile
