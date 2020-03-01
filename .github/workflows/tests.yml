@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the docker-compose tests
-      run: sh _run-tests.sh
+      run: sh _tests.sh
